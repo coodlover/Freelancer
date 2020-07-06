@@ -1,0 +1,4 @@
+1. UI
+2. backend
+3. web crawler
+4. high concurrency
