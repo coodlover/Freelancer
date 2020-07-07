@@ -3,7 +3,7 @@ import { Form,  Input, Button,  } from 'antd';
 import 'antd/dist/antd.css';
 import '../css/regist.css'
 
-class RegistFrom extends React.Component{
+class RegistForm extends React.Component{
 
     render() {
 
@@ -77,4 +77,4 @@ class RegistFrom extends React.Component{
         );
     }
 }
-export default RegistFrom;
+export default RegistForm;
