@@ -2,7 +2,7 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2020/7/7 10:52:06                            */
 /*==============================================================*/
-
+SET FOREIGN_KEY_CHECKS = 0;
 
 drop table if exists administrator;
 
@@ -27,8 +27,8 @@ drop table if exists work;
 /*==============================================================*/
 create table administrator
 (
-   a_id                 int not null,
-   name                 char(15) not null,
+   a_id                 int not null AUTO_INCREMENT,
+   name                 char(15)  unique not null,
    password             char(20) not null,
    power_level        smallint not null,
    primary key (a_id)
@@ -69,7 +69,7 @@ create table need_skill
    primary key (w_id, s_id)
 );
 
-alter table need_skill comment 'type 1��ʾ���룬0��ʾ��ѡ';
+alter table need_skill comment 'type 1 表示必选，type 0 表示可选';
 
 /*==============================================================*/
 /* Table: propose_work                                          */
@@ -88,7 +88,7 @@ create table propose_work
 /*==============================================================*/
 create table skills
 (
-   s_id                 int not null,
+   s_id                 int not null AUTO_INCREMENT,
    skill_name           char(30) not null,
    primary key (s_id)
 );
@@ -98,8 +98,8 @@ create table skills
 /*==============================================================*/
 create table user
 (
-   u_id                 int not null,
-   name                 char(15) not null,
+   u_id                 int not null AUTO_INCREMENT,
+   name                 char(15) unique not null,
    password             char(20) not null,
    phone                char(15) not null,
    e_mail             char(25) not null,
@@ -124,7 +124,7 @@ create table user_skill
 /*==============================================================*/
 create table work
 (
-   w_id                 int not null,
+   w_id                 int not null AUTO_INCREMENT,
    title                char(25) not null,
    payment_lower        float not null,
    payment_higher       Float  not null,
@@ -165,4 +165,4 @@ alter table user_skill add constraint FK_user_skill foreign key (u_id)
 alter table user_skill add constraint FK_user_skill2 foreign key (s_id)
       references skills (s_id) on delete restrict on update restrict;
 
-
+SET FOREIGN_KEY_CHECKS = 1;
