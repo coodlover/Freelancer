@@ -13,3 +13,7 @@
 ​		employee的界面（history work，profile，竞拍，推荐项目），管理员封禁的界面，employer的界面（发布项目，profile）
 
 数据库设计：见思维导图
+
+## day 2 任务：
+
+1. 数据库设计：
