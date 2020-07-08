@@ -14,7 +14,7 @@ drop table if exists need_skill;
 
 drop table if exists propose_work;
 
-drop table if exists skills;
+drop table if exists skill;
 
 drop table if exists user;
 
@@ -84,9 +84,9 @@ create table propose_work
 );
 
 /*==============================================================*/
-/* Table: skills                                                */
+/* Table: skill                                                */
 /*==============================================================*/
-create table skills
+create table skill
 (
    s_id                 int not null AUTO_INCREMENT,
    skill_name           char(30) not null,
@@ -151,7 +151,7 @@ alter table need_skill add constraint FK_need_skill foreign key (w_id)
       references work (w_id) on delete restrict on update restrict;
 
 alter table need_skill add constraint FK_need_skill2 foreign key (s_id)
-      references skills (s_id) on delete restrict on update restrict;
+      references skill (s_id) on delete restrict on update restrict;
 
 alter table propose_work add constraint FK_propose_work foreign key (u_id)
       references user (u_id) on delete restrict on update restrict;
@@ -163,6 +163,6 @@ alter table user_skill add constraint FK_user_skill foreign key (u_id)
       references user (u_id) on delete restrict on update restrict;
 
 alter table user_skill add constraint FK_user_skill2 foreign key (s_id)
-      references skills (s_id) on delete restrict on update restrict;
+      references skill (s_id) on delete restrict on update restrict;
 
 SET FOREIGN_KEY_CHECKS = 1;
