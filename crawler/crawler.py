@@ -3,15 +3,31 @@ import requests
 import time
 import pymysql
 
+PROXY_POOL_URL = 'http://localhost:5555/random'
+
+
+def get_proxy():
+ try:
+    response = requests.get(PROXY_POOL_URL)
+    if response.status_code == 200:
+        return response.text
+ except ConnectionError:
+    return None
+
+
 def getHTML(url):
+    #proxy_ = get_proxy()
+    #proxies = {'http': 'http://' + proxy_}
+    #print(proxy_)
     try:
-        r=requests.get(url,timeout=200)
+        r=requests.get(url, timeout=200)
         r.raise_for_status()
         r.encoding=r.apparent_encoding
         return r.text
     except:
         print("获取Url失败:", url)
         return 0
+
 
 def getProUrl(html, proUrl):
     if html == 0:
@@ -29,6 +45,7 @@ def getProUrl(html, proUrl):
         proUrlList.append(url)
     print("******", proUrl, "本页共有", len(proUrlList), "个项目")
     return proUrlList
+
 
 def getDetail(html, url):
     if html == 0:
@@ -70,6 +87,7 @@ def getDetail(html, url):
         detailDic['devList'].append(devDic)
     print(" 共有", len(detailDic['devList']), "个开发者", end=" ")
     return detailDic
+
 
 def sqlExe(db, cursor, sql, params):
     try:
@@ -115,6 +133,7 @@ def mysqlWrite(detailDic, db, cursor):
     sqlExe(db, cursor, sql, params)
     print("写入完成")
 
+
 def control():
     db = pymysql.connect("localhost", "root", "1234", "freelancer")
     cursor = db.cursor()
@@ -132,6 +151,7 @@ def control():
             mysqlWrite(detailDic, db, cursor)
             time.sleep(3)  # 防止系统检测封IP
     db.close()
+
 
 if __name__ == "__main__":
     control()
