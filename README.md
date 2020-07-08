@@ -22,5 +22,5 @@
 3. 前端框架搭建：
 
 ## day 3 任务：
-1. 完成后端Loginin，register部分，和SkillController的部分函数。
+1. 后端：完成后端Loginin，register部分，和SkillController的部分函数。
 
