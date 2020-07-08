@@ -128,8 +128,8 @@ create table work
    title                char(25) not null,
    payment_lower        float not null,
    payment_higher       Float  not null,
-   bidding_dll          timestamp not null,
-   finish_dll           timestamp not null,
+   bidding_ddl          timestamp not null,
+   finish_ddl           timestamp not null,
    description          varchar(500) not null,
    status               smallint not null,
    primary key (w_id)
