@@ -6,7 +6,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 
 drop table if exists administrator;
 
-drop table if exists do_works;
+drop table if exists do_work;
 
 drop table if exists issue_work;
 
@@ -35,9 +35,9 @@ create table administrator
 );
 
 /*==============================================================*/
-/* Table: do_works                                              */
+/* Table: do_work                                              */
 /*==============================================================*/
-create table do_works
+create table do_work
 (
    u_id                 int not null,
    w_id                 int not null,
@@ -135,10 +135,10 @@ create table work
    primary key (w_id)
 );
 
-alter table do_works add constraint FK_do_works foreign key (u_id)
+alter table do_work add constraint FK_do_work foreign key (u_id)
       references user (u_id) on delete restrict on update restrict;
 
-alter table do_works add constraint FK_do_works2 foreign key (w_id)
+alter table do_work add constraint FK_do_work2 foreign key (w_id)
       references work (w_id) on delete restrict on update restrict;
 
 alter table issue_work add constraint FK_issue_work foreign key (u_id)
