@@ -20,7 +20,7 @@
 
 ## day 3 任务：
 
-1. 爬虫（郑世民）：
+1. 爬虫（郑世民）：爬虫用了轮子，加上了proxy和header来绕过captcha
 2. 后端（谢厚）：LoginController，SkillController的接口实现。
 3. 前端组件（蒋钊）：
 4. 前端页面（张澳）：结合组件，给页面分配router，修改了form有关组件中的验证条件，以及构建了相关页面。
