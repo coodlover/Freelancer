@@ -147,6 +147,8 @@ def mysqlWrite(detailDic, db, cursor):
         return
     cursor.execute("SELECT MAX(`MATCH`.id) FROM `MATCH`")
     initID = cursor.fetchall()[0][0]
+    if not initID:
+        initID = 0
     match = ";"
     for devDic in detailDic['devList']:
         sql = "INSERT INTO `MATCH`(projectUrl, developerUrl, isAward, description) VALUES (%s,%s,%s,%s)"
@@ -163,7 +165,7 @@ def mysqlWrite(detailDic, db, cursor):
             sql = "update `developer` set `project`=CONCAT(`project`, %s) where `url`=%s"
             params = (detailDic['url']+";", devDic['url'])
             sqlExe(db, cursor, sql, params)
-    sql = "INSERT INTO `PROJECT`(url, name, budget, tag, description, `match`) VALUES (%s,%s,%s,%s,%s)"
+    sql = "INSERT INTO `PROJECT`(url, name, budget, tag, description, `match`) VALUES (%s,%s,%s,%s,%s, %s)"
     params = (detailDic['url'], detailDic['proName'], detailDic['budget'], detailDic['proTag'], detailDic['proDescription'], match)
     sqlExe(db, cursor, sql, params)
     print("写入完成")
@@ -193,7 +195,7 @@ class NetError(Exception):
 
 
 def crawler(page, num):
-    db = pymysql.connect("localhost", "root", "1234", "freelancer")
+    db = pymysql.connect("localhost", "root", "1234", "freelancer_update")
     cursor = db.cursor()
     for i in range(page, page+200):
         writelog(i, 1)
