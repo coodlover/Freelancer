@@ -44,14 +44,14 @@ def get_proxy():
     if response.status_code == 200:
         return response.text
  except ConnectionError:
-    return None
+    return ""
 
 
 def getHTML(url):
     proxy = getproxy()
     header = getheader()
-    print(proxy)
-    print(header)
+    # print(proxy)
+    # print(header)
     try:
         r = requests.get(url, headers=header, proxies=proxy, timeout=200)
         r.raise_for_status()
@@ -59,7 +59,7 @@ def getHTML(url):
         return r.text
     except:
         print("获取Url失败:", url)
-        return 0
+        return ""
 
 
 def getProUrl(html, proUrl):
@@ -167,38 +167,66 @@ def mysqlWrite(detailDic, db, cursor):
     print("写入完成")
 
 
-# def writelog(page, num):
-#     file = open("crawler.log", 'w', encoding="utf-8")
-#     file.write(page)
-#     file.write(num)
-#     file.close()
-#
-# def readlog():
-#     file = open("crawler.log", 'r')
-#     page = file.readline().strip()
-#     num = file.readline().strip()
-#     return page, num
+def writelog(page, num):
+    file = open("crawler.log", 'w', encoding="utf-8")
+    file.writelines([str(page)+"\n", str(num)+"\n"])
+    file.close()
 
-def control():
+
+def readlog():
+    file = open("crawler.log", 'r')
+    page = file.readline().strip()
+    num = file.readline().strip()
+    return page, num
+
+
+def exit_error(db, page, num):
+    db.close()
+    writelog(page, num)
+    raise NetError
+
+
+class NetError(Exception):
+    pass
+
+
+def crawler(page, num):
     db = pymysql.connect("localhost", "root", "1234", "freelancer")
     cursor = db.cursor()
-    for i in range(58, 151):
-        proUrl = "https://www.freelancer.cn/jobs/" + str(i+1) + "/?status=all&languages=zh"
+    for i in range(page, page+200):
+        writelog(i, 1)
+        proUrl = "https://www.freelancer.cn/jobs/" + str(i) + "/?status=all&languages=zh"
         proUrlList = getProUrl(getHTML(proUrl), proUrl)
         n = 1
         if proUrlList == 0:
-            return
+            exit_error(db, i, 1)
         total = len(proUrlList)
         for url in proUrlList:
+            if (i == page) and (n < num):
+                n += 1
+                continue
             print("{}/{} ".format(n, total), end=" ")
+            html = getHTML("https://www.freelancer.cn"+url)
+            if html == "":
+                exit_error(db, i, n)
             n += 1
-            detailDic = getDetail(getHTML("https://www.freelancer.cn"+url), url)
+            detailDic = getDetail(html, url)
             if not detailDic:
                 continue
             mysqlWrite(detailDic, db, cursor)
-            #time.sleep(3)  # 防止系统检测封IP
+            # time.sleep(3)  # 防止系统检测封IP
+
     db.close()
 
 
 if __name__ == "__main__":
-    control()
+    while True:
+        page, num = readlog()
+        page = int(page)
+        num = int(num)
+        print(page, num)
+        try:
+            crawler(page, num)
+            break
+        except NetError:
+            continue
