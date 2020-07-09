@@ -125,6 +125,7 @@ create table user_skill
 create table work
 (
    w_id                 int not null AUTO_INCREMENT,
+   u_id	         int not null,
    title                char(25) not null,
    payment_lower        float not null,
    payment_higher       Float  not null,
