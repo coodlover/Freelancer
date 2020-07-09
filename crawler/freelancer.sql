@@ -46,6 +46,7 @@ DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project` (
   `url` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `budget` varchar(255) NOT NULL,
   `tag` varchar(255) NOT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `match` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,

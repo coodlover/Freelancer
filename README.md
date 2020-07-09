@@ -3,12 +3,9 @@
 ## day 1 任务：
 
 1. 熟悉github 协作的流程（每人在公共库中push一个测试文本）
-
 2. 注册AWS账号，以及申请教育支持
-
 3. 本项目涉及的关键词：前后端分离，Unit Test， CQRS（读写分离），
 		Continuous Integration（代码连续性），performance test（性能测试），Microservice[微服务，云部署组件、API]、Container（Docker、Docker Compose)、Container Ochestration（Kubernetes）
-
 4. 项目构思：
 		页面：homepage（search bar，导航栏，tasks/根据用户类型展示），
 			employee的界面（history work，profile，竞拍，推荐项目），管理员封禁的界面，employer的界面（发布项目，profile）
@@ -21,3 +18,13 @@
 2. 后端框架搭建：
 3. 前端框架搭建：
 
+## day 3 任务：
+
+1. 爬虫（郑世民）：爬虫用了轮子，加上了proxy和header来绕过captcha
+2. 后端（谢厚）：LoginController，SkillController的接口实现。
+3. 前端组件（蒋钊）：完成登陆，注册，任务库，任务列表等基本组件的静态实现。
+4. 前端页面（张澳）：结合组件，给页面分配router，修改了form有关组件中的验证条件，以及构建了相关页面。
+
+## day 4 任务
+
+1. 增强爬虫程序鲁棒性，增加了异常处理功能，基本实现了自动化
